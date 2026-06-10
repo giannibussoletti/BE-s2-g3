@@ -17,6 +17,9 @@ public class Product {
         this.price = price;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public double getPrice() {
         return price;
@@ -24,6 +27,15 @@ public class Product {
 
     public String getCategory() {
         return category;
+    }
+
+    @Override
+    public String toString() {
+        return "\nPRODOTTO:" + "\n" +
+                "id: " + id + "\n" +
+                "Nome: " + name + "\n" +
+                "Categoria: " + category + "\n" +
+                "Prezzo: " + price + "\n";
     }
 }
 

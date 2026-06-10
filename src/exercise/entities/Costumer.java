@@ -17,4 +17,12 @@ public class Costumer {
     public int getTier() {
         return tier;
     }
+
+    @Override
+    public String toString() {
+        return "\nCLIENTE:" + "\n" +
+                "Id: " + id + "\n" +
+                "Nome: " + name + "\n" +
+                "Tier: " + tier + "\n";
+    }
 }
