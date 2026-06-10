@@ -6,9 +6,8 @@ public class Product {
     private final long id;
     private final String name;
     private final String category;
-    private final double price;
-
     Random random = new Random();
+    private double price;
 
     public Product(String name, String category, double price) {
         this.id = random.nextLong(1000000000000000000L, 9223372036854775807L);
@@ -23,6 +22,10 @@ public class Product {
 
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCategory() {

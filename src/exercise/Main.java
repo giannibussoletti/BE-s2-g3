@@ -49,20 +49,35 @@ public class Main {
 
         //1)
         List<Product> libriPrezzo100 = order4.getProductsList().stream().filter(product -> product.getCategory().equals("Books") && product.getPrice() > 100).toList();
-        libriPrezzo100.forEach(book -> System.out.println(book));
+//        libriPrezzo100.forEach(book -> System.out.println(book));
 
         //2)
-        List<Order> ordersBaby = orders.stream().filter(order -> order.getProductsList().stream().anyMatch(product -> product.getCategory().matches("Baby"))).toList();
+        List<Order> ordersBaby = orders.stream()
+                .filter(order -> order.getProductsList().stream()
+                        .anyMatch(product -> product.getCategory().equals("Baby"))).toList();
 //        System.out.println(ordersBaby);
 
         //3)
-        List<String> ragazziSconto = cart4.stream().filter(book -> book.getCategory().equals("Boys")).map(book -> "\n" + book.getName() + "\nPrezzo originale: " + book.getPrice() + "\nPrezzo scontato 10%: " + df.format(book.getPrice() - (book.getPrice() * 10 / 100))).toList();
+        List<Product> ragazziScontoProduct = cart4.stream().filter(book -> book.getCategory().equals("Boys"))
+                .map(book -> {
+                    double deal = book.getPrice() - (book.getPrice() * 10 / 100);
+                    String formatted = df.format(deal);
+                    book.setPrice(Double.parseDouble(formatted));
+                    return book;
+                }).toList();
         //        ragazziSconto.forEach(book -> System.out.println(book));
 
         //4)
-        List<String> filteredProductDateTier2 = orders.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2021, 1, 31))).filter(order -> order.getDeliveryDate().isBefore(LocalDate.of(2021, 4, 1))).filter(order -> order.getCostumer().getTier() >= 2).map(order -> order.getProductsList()).map(list -> list.stream().map(product -> "\nProdotto comprato fra il 01 febbraio e il 1 aprile 2021: " + product).toList()).map(frasi -> frasi + "").toList();
-//        filteredProductDateTier2.forEach(product -> System.out.println(product));
+        List<Product> productsFiltered = new ArrayList<>();
+        
+        List<Order> filteredProductDateTier2 = orders.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2021, 1, 31))
+                && order.getDeliveryDate().isBefore(LocalDate.of(2021, 4, 1))
+                && order.getCostumer().getTier() >= 2).toList();
+        filteredProductDateTier2.forEach(order -> {
+            productsFiltered.addAll(order.getProductsList());
+        });
 
+//                .
     }
 
 
