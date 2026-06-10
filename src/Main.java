@@ -2,6 +2,8 @@ import com.github.javafaker.Faker;
 import entities.User;
 import functional_interfaces.StringModifier;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -127,8 +129,42 @@ public class Main {
                 .map(user -> user.getName() + " " + user.getSurname() + " - " + user.getAge())
                 .forEach(congnomeEtà -> System.out.println(congnomeEtà));
 
+        //--------------STREAM OPERAZIONI TERMINALI
+        //-------------------Match-----
+        // "Convertono" lo stream in un booleano
+        // anyMatch -> Controlla se nello Stream c'è almeno un elemento che soddisfa la richiesta
+        // allMatch -> Tutti gli elementi devono soddisfare la richiesta
+        if (randomUsers2.stream().anyMatch(user -> user.getAge() < 18))
+            System.out.println("Almeno uno della lista è minorenne");
+        else System.out.println("Nessun minorenne");
 
+        if (randomUsers2.stream().allMatch(user -> user.getAge() < 18))
+            System.out.println("Tutti gli user sono minorenni");
+        else System.out.println("Almeno un maggiorenne");
+
+        //---------------------Reduction---------------
+        // Riduce tutto ad un singolo elemento
+        int sommaEta = randomUsers2.stream()
+                .filter(user -> user.getAge() < 18)
+                .map(user -> user.getAge())
+                .reduce(0, (totaleEta, eta) -> totaleEta + eta);
+        System.out.println("La somma totale delle età è: " + sommaEta);
+        //------------------Collect-------------------
+        //Converte tutto lo stream
+        //Convertiamo ad una Lista
+        //TO LIST
+        List<User> minorenniList = randomUsers2.stream().filter(user -> user.getAge() < 18).toList();
+        List<String> nomiMinorenni = randomUsers2.stream().filter(user -> user.getAge() < 18).map(user -> user.getSurname()).toList();
+
+
+        //Lavorare con le date in java
+        LocalDate oggi = LocalDate.now();
+        LocalDateTime time = LocalDateTime.now();
+        System.out.println(oggi + ": " + time);
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate todayLastYear = LocalDate.now().plusYears(-1);
+        LocalDate customDate = LocalDate.of(1994, 2, 13);
+        System.out.println(customDate);
     }
-
 
 }
