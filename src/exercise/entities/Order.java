@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Order {
-    Long id;
-    String status;
-    LocalDate orderDate;
-    LocalDate deliveryDate;
-    List<Product> products;
-    Costumer costumer;
+    private final Long id;
+    private final String status;
+    private final LocalDate orderDate;
+    private final LocalDate deliveryDate;
+    private final List<Product> products;
+    private final Costumer costumer;
 
     Random random = new Random();
 

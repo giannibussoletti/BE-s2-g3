@@ -3,10 +3,10 @@ package exercise.entities;
 import java.util.Random;
 
 public class Product {
-    long id;
-    String name;
-    String category;
-    double price;
+    private final long id;
+    private final String name;
+    private final String category;
+    private final double price;
 
     Random random = new Random();
 
