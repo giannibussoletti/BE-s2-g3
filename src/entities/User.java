@@ -15,6 +15,14 @@ public class User {
         return age;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
     @Override
     public String toString() {
         return "User{" +
