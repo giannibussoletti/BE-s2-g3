@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Main {
     static void main() {
@@ -62,7 +63,7 @@ public class Main {
             List<User> users = new ArrayList<>();
             Random random = new Random();
             for (int i = 0; i < 100; i++) {
-                users.add(new User(faker.lebowski().character(), faker.book().author(), random.nextInt(0, 100)));
+                users.add(new User(faker.leagueOfLegends().champion(), faker.gameOfThrones().character(), random.nextInt(0, 100)));
             }
             return users;
         };
@@ -72,6 +73,7 @@ public class Main {
         }
 
         List<User> randomUsers = randomUser.get();
+        List<User> randomUsers2 = randomUser.get();
 
         //-----------------PREDICATES----------------
         //Simili ai filtri in JS
@@ -95,6 +97,36 @@ public class Main {
         //------------------------REMOVE IF-----------------
 //        randomUsers.removeIf(isAdult);
         randomUsers.removeIf(user -> user.getAge() >= 18);
+
+//        randomUsers.forEach(user -> System.out.println(user));
+        randomUsers.forEach(System.out::println); //Metodo più moderno per stampare con le lambda
+
+        //--------------------JAVA STREAMS--------------------
+        // È un interfaccia che restituisce un flusso di dati
+        // su cui si possono effettuare operazioni di filtro(filter), mappa(map), e riduzione(reduce)
+        // Lo stream può lavorare sia in modo sequenziale che parallelo. Esso
+        // può essere visto come una catena di operazioni sui dati che ha una
+        // sorgente, degli elementi intermedi ed una destinazione (pipeline).
+        // Lo stream va aperto, vanno fatte le modifiche e poi va chiuso.
+
+        //-------------------STREAM OPERAZIONI INTERMEDIE---------------
+        // Le operazioni intermedie restituiscono sempre uno stream, questo
+        // serve per concatenare diverse operazioni intermedie
+        // Apriamo lo stream con .stream()
+
+        // Il FILTER prende una LAMBDA di tipo PREDICATE
+        randomUsers2.stream().filter(user -> user.getAge() < 18);
+
+        //Il MAP trasforma i dati in un altra forma
+
+        Stream<String> nomiECognomi = randomUsers2.stream().map(user -> user.getName() + " " + user.getSurname() + " " + user.getAge());
+        nomiECognomi.forEach(nomeCompleto -> System.out.println(nomeCompleto));
+
+        //--------------------------FILTER & MAP------------------
+        randomUsers2.stream().filter(user -> user.getAge() <= 18)
+                .map(user -> user.getName() + " " + user.getSurname() + " - " + user.getAge())
+                .forEach(congnomeEtà -> System.out.println(congnomeEtà));
+
 
     }
 
