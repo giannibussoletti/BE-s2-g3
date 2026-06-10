@@ -34,4 +34,19 @@ public class Order {
     public Costumer getCostumer() {
         return costumer;
     }
+
+    public List<Product> getProductsList() {
+        return products;
+    }
+
+    @Override
+    public String toString() {
+        return "\nORDINE:" +
+                "id: " + id + "\n" +
+                "status: " + status + "\n" +
+                "orderDate: " + orderDate + "\n" +
+                "deliveryDate: " + deliveryDate + "\n" +
+                "\nCart:" + products + "\n\n" +
+                "costumer: \n" + costumer;
+    }
 }
